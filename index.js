@@ -32,6 +32,7 @@ let IPFS_URL = "http://192.81.215.106:5001/api/v0";
 let IPFS_GATEWAY = "https://ipfsgateway.orbis.club/ipfs/";
 //const ipfsClient = create({ host: 'localhost', port: 5001, protocol: 'http'});
 //const ipfsClient = IPFS.create();
+const ipfsClient = IPFS.create();
 
 app.listen(process.env.PORT || PORT, (error) =>{
     if(!error)
@@ -67,7 +68,6 @@ app.post('/upload-image', async function (req, res) {
   try {
     const file = new Buffer(req.files.image.data);
     //let added = await ipfsClient.add(file);
-    const ipfsClient = await IPFS.create()
     const { cid } = await ipfsClient.add(file)
 
     /** Return results */
