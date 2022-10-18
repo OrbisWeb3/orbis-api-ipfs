@@ -32,7 +32,15 @@ let IPFS_URL = "http://192.81.215.106:5001/api/v0";
 let IPFS_GATEWAY = "https://ipfsgateway.orbis.club/ipfs/";
 //const ipfsClient = create({ host: 'localhost', port: 5001, protocol: 'http'});
 //const ipfsClient = IPFS.create();
-const ipfsClient = IPFS.create();
+let ipfsClient;
+
+/** Init IPFS client */
+async function init() {
+  ipfsClient = await IPFS.create();
+  console.log("IPFS Initiated.");
+}
+init();
+
 
 app.listen(process.env.PORT || PORT, (error) =>{
     if(!error)
