@@ -28,7 +28,7 @@ var jsonParser = bodyParser.json()
 const PORT = 3004;
 
 /** Initiate IPFS client */
-let IPFS_URL = "https://ipfsdefault.orbis.club/api/v0";
+let IPFS_URL = "http://192.81.215.106:5001/api/v0";
 let IPFS_GATEWAY = "https://ipfsgateway.orbis.club/ipfs/";
 const ipfsClient = create({ url: IPFS_URL });
 
