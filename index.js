@@ -7,7 +7,7 @@ import fileUpload from 'express-fileupload';
 import fs from 'fs';
 
 /** IPFS */
-import { create } from 'ipfs-http-client'
+import * as IPFS from 'ipfs-core'
 
 import cors from 'cors';
 const corsOptions ={
@@ -30,7 +30,8 @@ const PORT = 3004;
 /** Initiate IPFS client */
 let IPFS_URL = "http://192.81.215.106:5001/api/v0";
 let IPFS_GATEWAY = "https://ipfsgateway.orbis.club/ipfs/";
-const ipfsClient = create({ host: 'localhost', port: 5001, protocol: 'http'});
+//const ipfsClient = create({ host: 'localhost', port: 5001, protocol: 'http'});
+const ipfs = IPFS.create();
 
 app.listen(process.env.PORT || PORT, (error) =>{
     if(!error)
@@ -65,13 +66,14 @@ app.post('/upload-image', async function (req, res) {
   /** Upload image to IPFS */
   try {
     const file = new Buffer(req.files.image.data);
-    let added = await ipfsClient.add(file);
+    //let added = await ipfsClient.add(file);
+    const { path } = await ipfs.add(file)
 
     /** Return results */
     res.json({
       status: 200,
       result: {
-        url: "ipfs://" + added.path,
+        url: "ipfs://" + path,
         gateway: IPFS_GATEWAY
       }
     });
