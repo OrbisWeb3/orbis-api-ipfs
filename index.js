@@ -67,13 +67,13 @@ app.post('/upload-image', async function (req, res) {
   try {
     const file = new Buffer(req.files.image.data);
     //let added = await ipfsClient.add(file);
-    const { path } = await ipfs.add(file)
+    const { cid } = await ipfs.add(file)
 
     /** Return results */
     res.json({
       status: 200,
       result: {
-        url: "ipfs://" + path,
+        url: "ipfs://" + cid,
         gateway: IPFS_GATEWAY
       }
     });
